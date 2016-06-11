@@ -1,0 +1,50 @@
+void findFailedJobs(){
+  //  char dataset[100]="GJets_HT-400To600";
+  //  char dataset[100]="GJets_HT-600ToInf";
+  //  char dataset[100]="ZJetsToNuNu_HT-400To600";
+  //  char dataset[100]="ZJetsToNuNu_HT-600ToInf";
+  //  char dataset[100]="WJetsToLNu_HT-400To600";
+  //  char dataset[100]="WJetsToLNu_HT-600To800";
+  //  char dataset[100]="WJetsToLNu_HT-800To1200";
+  //  char dataset[100]="WJetsToLNu_HT-1200To2500";
+  //char dataset[100]="WJetsToLNu_HT-2500ToInf";
+  //  char dataset[100]="QCD_HT300to500";
+  //  char dataset[100]="QCD_HT500to700";
+  //  //  char dataset[100]="QCD_HT700to1000";
+  //char dataset[100]="QCD_HT1000to1500";
+  //  char dataset[100]="QCD_HT1500to2000";
+  //char dataset[100]="QCD_HT2000toInf";
+  //  char dataset[100]="QCD_HT1000to1500";
+  //  char dataset[100]="TTJets_TuneCUETP8M1";
+  //  char dataset[100]="TTJets_HT-600to800";
+  char dataset[100]="TTJets_HT-800to1200";
+  //  char dataset[100]="TTJets_HT-1200to2500";
+  //char dataset[100]="TTJets_HT-2500toInf";
+  char jdlStart[100];
+  sprintf(jdlStart,"signalRegionSkim_%s_",dataset);
+  char ofileStart[300];
+  sprintf(ofileStart,"/eos/uscms/store/user/vhegde/GMSBstudies/signalRegionSkim/a676087f1707bdbd3a5158edb058d445fc625d27/signalRegionSkim_Spring15v2.%s_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_",dataset);
+  //  sprintf(ofileStart,"/eos/uscms/store/user/vhegde/GMSBstudies/signalRegionSkim/a676087f1707bdbd3a5158edb058d445fc625d27/signalRegionSkim_Spring15v2.%s_13TeV-madgraph_",dataset);
+  //sprintf(ofileStart,"/eos/uscms/store/user/vhegde/GMSBstudies/signalRegionSkim/a676087f1707bdbd3a5158edb058d445fc625d27/signalRegionSkim_Spring15v2.%s_13TeV-madgraphMLM-pythia8_",dataset);
+  char ofileEnd[100]="_RA2AnalysisTree.root";
+  char name1[100],name2[400];
+  gEnv->SetValue("TFile.Recover", 0);
+  vector<int> failedID;
+  for(int i=0;;i++){
+    sprintf(name1,"%s%i.jdl",jdlStart,i);//cout<<name1<<endl;
+    ifstream infile(name1);
+    if(!infile) {cout<<"Total jdl="<<i<<endl;break;}
+    sprintf(name2,"%s%i%s",ofileStart,i,ofileEnd);
+    TFile *f1=new TFile(name2);
+    if(f1->IsZombie() || !f1) {
+      failedID.push_back(i);
+    }
+    delete f1;
+  }
+  cout<<"-----------------------------------------------"<<endl;
+  for(int i=0;i<failedID.size();i++){
+    cout<<"condor_submit "<<jdlStart<<failedID[i]<<".jdl"<<endl;
+  }
+  cout<<"-----------------------------------------------"<<endl;
+  cout<<"Total failed "<<dataset<<" jobs:"<<failedID.size()<<endl;
+}

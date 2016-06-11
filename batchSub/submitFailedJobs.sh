@@ -1,0 +1,8 @@
+#!/bin/sh
+condor_submit signalRegionSkim_TTJets_HT-800to1200_0.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_10.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_12.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_13.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_15.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_16.jdl
+condor_submit signalRegionSkim_TTJets_HT-800to1200_17.jdl

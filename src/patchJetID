@@ -1,0 +1,178 @@
+baselinePlots.cc:  ntuple->setStatus(true);
+baselinePlots.cc:    ntuple->fChain->GetEntry(iEvt);
+doSkims.cc:    ntuple->patchJetID(); 
+fillDphiGamma.cc:	       ntuple->fChain->SetBranchStatus("MHT_Phi",1);
+fillDphiGamma.cc:	       if( ntuple->fChain->GetLeaf( "MHT_Phi" ) == NULL )
+fillDphiGamma.cc:	       ntuple->fChain->SetBranchStatus("METPhi",1);
+fillDphiGamma.cc:	       if( ntuple->fChain->GetLeaf( "METPhi" ) == NULL )
+fillDphiGamma.cc:	       ntuple->fChain->SetBranchStatus("Jets",1);
+fillDphiGamma.cc:	       if( ntuple->fChain->GetLeaf( "Jets" ) == NULL )
+fillDphiGamma.cc:	       ntuple->fChain->SetBranchStatus(weightbranch,1);
+fillDphiGamma.cc:	       if( ntuple->fChain->GetLeaf( weightbranch ) == NULL )
+fillDphiGamma.cc:    // ntuple->patchJetID();
+fillDphiGamma.cc:    vector<TLorentzVector> *photons = ntuple->bestPhoton;
+fillDphiGamma.cc:    cout << "MHT_Phi: " << ntuple->MHT_Phi << endl;
+fillDphiGamma.cc:    double dPhiGammaMHT = photons->at(0).Phi()-ntuple->MHT_Phi ;
+fillDphiGamma.cc:    double dPhiGammaMET = photons->at(0).Phi()-ntuple->METPhi ;
+fillLeptonTruth.cc:	       ntuple->fChain->SetBranchStatus("Muons",1);	       
+fillLeptonTruth.cc:	       ntuple->fChain->SetBranchStatus("Electrons",1);
+fillLeptonTruth.cc:	       ntuple->fChain->SetBranchStatus("GenMus",1);
+fillLeptonTruth.cc:	       ntuple->fChain->SetBranchStatus("GenEls",1);
+fillLeptonTruth.cc:	       ntuple->fChain->SetBranchStatus(weightbranch,1);
+fillLeptonTruth.cc:    // ntuple->patchJetID();
+fillLeptonTruth.cc:    vector<TLorentzVector> muons = *ntuple->Muons;
+fillLeptonTruth.cc:    vector<TLorentzVector> electrons = *ntuple->Electrons;
+fillLeptonTruth.cc:    vector<TLorentzVector> genElectrons = *ntuple->GenEls;
+fillLeptonTruth.cc:    vector<TLorentzVector> genMuons = *ntuple->GenMus;
+fillLeptonTruth.cc:	histo->Fill(1.,ntuple->fChain->GetLeaf(weightbranch)->GetValue());
+fillLeptonTruth.cc:	histo->Fill(0.,ntuple->fChain->GetLeaf(weightbranch)->GetValue());
+fillLeptonTruth.cc:	histo->Fill(1.,ntuple->fChain->GetLeaf(weightbranch)->GetValue());
+fillLeptonTruth.cc:	histo->Fill(0.,ntuple->fChain->GetLeaf(weightbranch)->GetValue());
+fillPhotonTruth.cc:	       ntuple->fChain->SetBranchStatus("photon_genMatched",1);
+fillPhotonTruth.cc:	       ntuple->fChain->SetBranchStatus(weightbranch,1);
+fillPhotonTruth.cc:    // ntuple->patchJetID();
+fillPhotonTruth.cc:    histo->Fill( ntuple->photon_genMatched->at(ntuple->bestPhotonIndex->at(0) ) , ntuple->fChain->GetLeaf(weightbranch)->GetValue() );
+fullAnalysis.cc:    ntuple->patchJetID();
+jetIDpatch.cc:    newTree = ntuple->fChain->CloneTree(0);
+jetIDpatch.cc:    ntuple->fChain->SetBranchStatus("slimJet",1);
+jetIDpatch.cc:    ntuple->fChain->SetBranchStatus("slimJet_slimJetID",1);
+jetIDpatch.cc:    ntuple->fChain->SetBranchStatus("bestPhoton",1);
+jetIDpatch.cc:    if( ntuple->fChain->GetLeaf("slimJet_slimJetID") == NULL 
+jetIDpatch.cc:	|| ntuple->fChain->GetLeaf("slimJet") == NULL 
+jetIDpatch.cc:	|| ntuple->fChain->GetLeaf("bestPhoton") == NULL 
+jetIDpatch.cc:    ntuple->HT = 0. ;
+jetIDpatch.cc:    ntuple->NJets = 0 ;
+jetIDpatch.cc:    ntuple->JetID = true ; 
+jetIDpatch.cc:    std::vector<TLorentzVector> jets = *(ntuple->slimJet);
+jetIDpatch.cc:	  ntuple->HT+=jets[i].Pt();
+jetIDpatch.cc:	  ntuple->NJets++;
+jetIDpatch.cc:      if( ntuple->slimJet_slimJetID == 0 && jets[i].Pt()>30. && jets[i].DeltaR((*ntuple->bestPhoton)[0])>0.4 )
+jetIDpatch.cc:	ntuple->JetID = false ; 
+jetIDpatch.cc:    ntuple->MHT = mht.Pt();
+selectBaseline.cc:    //ntuple->patchJetID();
+selectBaseline.cc:    std::cout << "Leptons: " << ntuple->Leptons << endl;
+selectBaseline.cc:    std::cout << "NumPhotons: " << ntuple->NumPhotons << endl;
+selectBaseline.cc:    std::cout << "NJets: " << ntuple->NJets << endl;    
+selectBaseline.cc:    std::cout << "HT: " << ntuple->HT << endl;
+selectBaseline.cc:    std::cout << "MHT: " << ntuple->MHT << endl;
+selectBaseline.cc:    std::cout << "DeltaPhi1: " << ntuple->DeltaPhi1 << endl;
+selectBaseline.cc:    std::cout << "DeltaPhi2: " << ntuple->DeltaPhi2 << endl;    
+selectBaseline.cc:    std::cout << "DeltaPhi3: " << ntuple->DeltaPhi3 << endl;
+selectBaseline.cc:    std::cout << "DeltaPhi4: " << ntuple->DeltaPhi4 << endl;
+selectBaseline.cc:    if( ntuple->Leptons == 0 ) histo->Fill(1);
+selectBaseline.cc:    if( ntuple->NumPhotons >= 1 ) histo->Fill(2);
+selectBaseline.cc:    if( ntuple->NJets>=4 ) histo->Fill(3);
+selectBaseline.cc:    if( ntuple->HT>500. ) histo->Fill(4);
+selectBaseline.cc:    if( ntuple->MHT>0. ) histo->Fill(5); 
+selectBaseline.cc:    if( ntuple->DeltaPhi1>0.5 ) histo->Fill(6);
+selectBaseline.cc:    if( ntuple->DeltaPhi2>0.5 ) histo->Fill(7);
+selectBaseline.cc:    if( ntuple->DeltaPhi3>0.3 ) histo->Fill(8);
+selectBaseline.cc:    if( ntuple->DeltaPhi4>0.3 ) histo->Fill(9);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("BTags",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("NJets",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("MHT",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("HT",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_bDiscriminatorSubjet1CSV",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_bDiscriminatorSubjet2CSV",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_NsubjettinessTau1",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_NsubjettinessTau2",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_NsubjettinessTau3",1);
+selectBin.cc:    ntuple->fChain->SetBranchStatus("JetsAK8_prunedMass",1);
+selectBin.cc:    //ntuple->patchJetID();
+selectBin.cc:    std::cout << "NJets: " << ntuple->NJets << std::endl;    
+selectBin.cc:    std::cout << "HT: " << ntuple->HT << std::endl;
+selectBin.cc:    std::cout << "MHT: " << ntuple->MHT << std::endl;
+selectBin.cc:    std::cout << "BTags: " << ntuple->BTags << std::endl;
+selectBin.cc:    if( ntuple->BTags>=minBTags && ntuple->BTags<=maxBTags ) histo->Fill(1);
+selectBin.cc:    if( ntuple->NJets>=minNJets && ntuple->NJets<=maxNJets ) histo->Fill(2);
+selectBin.cc:    if( ntuple->NJets>=minNJets && ntuple->NJets<=maxNJets ) histo->Fill(3);
+selectBin.cc:    if( ntuple->HT>minHT && ntuple->HT<maxHT ) histo->Fill(4);
+selectBin.cc:    if( ntuple->MHT>minMHT && ntuple->MHT<maxMHT ) histo->Fill(5);
+selectBin.cc:    vector<TLorentzVector> ak8Jets = *(ntuple->JetsAK8);
+selectBin.cc:      std::cout << "AK8jet pruned mass: " << ntuple->JetsAK8_prunedMass->at(j) << std::endl;
+selectBin.cc:      std::cout << "AK8jet subjet1 CSV: " << ntuple->JetsAK8_bDiscriminatorSubjet1CSV->at(j) << std::endl;
+selectBin.cc:      std::cout << "AK8jet subjet2 CSV: " << ntuple->JetsAK8_bDiscriminatorSubjet2CSV->at(j) << std::endl;
+selectBin.cc:      std::cout << "AK8jet tau12: " << ntuple->JetsAK8_NsubjettinessTau1->at(j)/ntuple->JetsAK8_NsubjettinessTau2->at(j) << std::endl;
+selectBin.cc:      if( (ntuple->JetsAK8_bDiscriminatorSubjet1CSV->at(j) > .89 ||
+selectBin.cc:	   ntuple->JetsAK8_bDiscriminatorSubjet2CSV->at(j) > .89 ) &&
+selectBin.cc:	  ntuple->JetsAK8_NsubjettinessTau2->at(j)/ntuple->JetsAK8_NsubjettinessTau1->at(j) < 0.6 ){
+selectBin.cc:	prunedMassHiggs->Fill(ntuple->JetsAK8_prunedMass->at(j));
+selectBin.cc:	if( ntuple->JetsAK8_prunedMass->at(j) < 130. && 
+selectBin.cc:	    ntuple->JetsAK8_prunedMass->at(j) > 100. )
+selectBin.cc:      if( ntuple->JetsAK8_NsubjettinessTau2->at(j)/ntuple->JetsAK8_NsubjettinessTau1->at(j) < 0.6 ){
+selectBin.cc:	prunedMassV->Fill(ntuple->JetsAK8_prunedMass->at(j));
+selectBin.cc:	if( ntuple->JetsAK8_prunedMass->at(j) < 100. && 
+selectBin.cc:	    ntuple->JetsAK8_prunedMass->at(j) > 60. )
+selectHighBTags.cc:    ntuple->fChain->SetBranchStatus("BTags",1);
+selectHighBTags.cc:    //ntuple->patchJetID();
+selectHighBTags.cc:    std::cout << "Leptons: " << ntuple->Leptons << endl;
+selectHighBTags.cc:    std::cout << "NumPhotons: " << ntuple->NumPhotons << endl;
+selectHighBTags.cc:    std::cout << "NJets: " << ntuple->NJets << endl;    
+selectHighBTags.cc:    std::cout << "HT: " << ntuple->HT << endl;
+selectHighBTags.cc:    std::cout << "MHT: " << ntuple->MHT << endl;
+selectHighBTags.cc:    std::cout << "DeltaPhi1: " << ntuple->DeltaPhi1 << endl;
+selectHighBTags.cc:    std::cout << "DeltaPhi2: " << ntuple->DeltaPhi2 << endl;    
+selectHighBTags.cc:    std::cout << "DeltaPhi3: " << ntuple->DeltaPhi3 << endl;
+selectHighBTags.cc:    std::cout << "DeltaPhi4: " << ntuple->DeltaPhi4 << endl;
+selectHighBTags.cc:    if( ntuple->BTags>=2 ) histo->Fill(1);
+selectHighMHT.cc:    ntuple->fChain->SetBranchStatus("MHT",1);
+selectHighMHT.cc:    //ntuple->patchJetID();
+selectHighMHT.cc:    std::cout << "Leptons: " << ntuple->Leptons << endl;
+selectHighMHT.cc:    std::cout << "NumPhotons: " << ntuple->NumPhotons << endl;
+selectHighMHT.cc:    std::cout << "NJets: " << ntuple->NJets << endl;    
+selectHighMHT.cc:    std::cout << "HT: " << ntuple->HT << endl;
+selectHighMHT.cc:    std::cout << "MHT: " << ntuple->MHT << endl;
+selectHighMHT.cc:    std::cout << "DeltaPhi1: " << ntuple->DeltaPhi1 << endl;
+selectHighMHT.cc:    std::cout << "DeltaPhi2: " << ntuple->DeltaPhi2 << endl;    
+selectHighMHT.cc:    std::cout << "DeltaPhi3: " << ntuple->DeltaPhi3 << endl;
+selectHighMHT.cc:    std::cout << "DeltaPhi4: " << ntuple->DeltaPhi4 << endl;
+selectHighMHT.cc:    if( ntuple->MHT>100. ) histo->Fill(1); 
+selectLeptonCR.cc:    //ntuple->patchJetID();
+selectLeptonCR.cc:    std::cout << "Leptons: " << ntuple->Leptons << endl;
+selectLeptonCR.cc:    std::cout << "NumPhotons: " << ntuple->NumPhotons << endl;
+selectLeptonCR.cc:    std::cout << "NJets: " << ntuple->NJets << endl;    
+selectLeptonCR.cc:    std::cout << "HT: " << ntuple->HT << endl;
+selectLeptonCR.cc:    std::cout << "MHT: " << ntuple->MHT << endl;
+selectLeptonCR.cc:    std::cout << "DeltaPhi1: " << ntuple->DeltaPhi1 << endl;
+selectLeptonCR.cc:    std::cout << "DeltaPhi2: " << ntuple->DeltaPhi2 << endl;    
+selectLeptonCR.cc:    std::cout << "DeltaPhi3: " << ntuple->DeltaPhi3 << endl;
+selectLeptonCR.cc:    std::cout << "DeltaPhi4: " << ntuple->DeltaPhi4 << endl;
+selectLeptonCR.cc:    if( ntuple->Leptons == 1 ) histo->Fill(1);
+selectLeptonCR.cc:    if( ntuple->NumPhotons >= 1 ) histo->Fill(2);
+selectLeptonCR.cc:    if( ntuple->NJets>=4 ) histo->Fill(3);
+selectLeptonCR.cc:    if( ntuple->HT>500. ) histo->Fill(4);
+selectLeptonCR.cc:    if( ntuple->MHT>0. ) histo->Fill(5); 
+selectLeptonCR.cc:    if( ntuple->DeltaPhi1>0.5 ) histo->Fill(6);
+selectLeptonCR.cc:    if( ntuple->DeltaPhi2>0.5 ) histo->Fill(7);
+selectLeptonCR.cc:    if( ntuple->DeltaPhi3>0.3 ) histo->Fill(8);
+selectLeptonCR.cc:    if( ntuple->DeltaPhi4>0.3 ) histo->Fill(9);
+selectLowDphiCR.cc:    //ntuple->patchJetID();
+selectLowDphiCR.cc:    if( ntuple->Leptons == 0 ) histo->Fill(1);
+selectLowDphiCR.cc:    if( ntuple->NumPhotons >= 1 ) histo->Fill(2);
+selectLowDphiCR.cc:    if( ntuple->NJets>=4 ) histo->Fill(3);
+selectLowDphiCR.cc:    if( ntuple->HT>500. ) histo->Fill(4);
+selectLowDphiCR.cc:    if( ntuple->MHT>0. ) histo->Fill(5); 
+selectLowDphiCR.cc:    if( ntuple->DeltaPhi1<0.5 || ntuple->DeltaPhi2<0.5 || ntuple->DeltaPhi3<0.3 || ntuple->DeltaPhi4<0.3 ) histo->Fill(6);
+selectPrompt.cc:    ntuple->fChain->SetBranchStatus("Photons",1);
+selectPrompt.cc:    ntuple->fChain->SetBranchStatus("photon_nonPrompt",1);
+selectPrompt.cc:    if( ntuple->fChain->GetLeaf("Photons") == NULL ||
+selectPrompt.cc:	ntuple->fChain->GetLeaf("photon_nonPrompt") == NULL ){ 
+selectPrompt.cc:    //ntuple->patchJetID();
+selectPrompt.cc:    photons = *(ntuple->Photons);
+selectPrompt.cc:    bestPhoton = *(ntuple->bestPhoton);
+selectPrompt.cc:    if( ntuple->photon_nonPrompt->at(bestPhotonIndex) ){
+signalRegionSkim.cc:  TTree* outputTree = ntuple->fChain->CloneTree(0);
+signalRegionSkim.cc:    ntuple->patchJetID();
+skim.cc:    skimTree = ntuple->fChain->CloneTree(0);
+weightProducer.cc:    ntuple->fChain->SetBranchStatus(weightBranch.Data(),1);
+weightProducer.cc:    if( ntuple->fChain->GetLeaf(weightBranch.Data()) == NULL )
+weightProducer.cc:      if( ntuple->fChain->GetLeaf("SusyMotherMass") == NULL )
+weightProducer.cc:      if( ntuple->fChain->GetLeaf("SusyLSPMass") == NULL )
+weightProducer.cc:      if( ntuple->fChain->GetLeaf( weightBranch.Data() ) == NULL )
+weightProducer.cc:      SusyLSPMass = ntuple->fChain->GetLeaf("SusyLSPMass")->GetValue();
+weightProducer.cc:      SusyMotherMass = ntuple->fChain->GetLeaf("SusyMotherMass")->GetValue();
+weightProducer.cc:	weight = ntuple->fChain->GetLeaf( weightBranch.Data() )->GetValue()*lumi;
+weightProducer.cc:	if( gluinoXsec.find( ntuple->fChain->GetLeaf("SusyMotherMass")->GetValue() ) == gluinoXsec.end() ){
+weightProducerNew.cc:	  newTree = ntuple->fChain->CloneTree(0);
+weightProducerNew.cc:	  ntuple->Weight = 3.1415;
